@@ -1,7 +1,9 @@
+// recuperiamo l'id dall'URL
 const params = new URLSearchParams(window.location.search)
 const id = params.get("_id")
 const URL_STRIVE = "https://striveschool-api.herokuapp.com/api/product/" + id
 
+// FUNZIONE PRINCIPALE: questa funzione serve per gestire la creazione degli elementi del DOM
 const handleCreatePage = function (obj) {
   const product = {
     _id: obj._id,
@@ -12,35 +14,45 @@ const handleCreatePage = function (obj) {
     imageUrl: obj.imageUrl,
   }
 
+  // Contenitore della schermata
   const productContainer = document.getElementById("productContainer")
 
+  // Contenitore dell'immagine
   const imgContainer = document.createElement("div")
   imgContainer.classList.add("d-flex", "justify-content-center")
 
+  // Immagine del prodotto
   const img = document.createElement("img")
   img.src = product.imageUrl
 
+  // Contenitore del testo
   const textContainer = document.createElement("div")
 
+  // Titolo
   const title = document.createElement("h2")
   title.classList.add("display-2")
   title.innerText = product.name
 
+  // Descizione
   const description = document.createElement("p")
   description.classList.add("fs-5")
   description.innerText = product.description
 
+  // Contenitore delle badge
   const tagContainer = document.createElement("div")
   tagContainer.classList.add("d-flex", "my-2", "align-items-center", "gap-2")
 
+  // Badge prezzo
   const price = document.createElement("span")
   price.classList.add("badge", "text-bg-secondary")
   price.innerText = "Prezzo: " + product.price + "$"
 
+  // Badge brand
   const brand = document.createElement("span")
   brand.classList.add("badge", "text-bg-secondary", "me-auto")
   brand.innerText = product.brand
 
+  // Id
   const id = document.createElement("span")
   id.innerText = product._id
 
@@ -55,6 +67,9 @@ const handleCreatePage = function (obj) {
   productContainer.appendChild(textContainer)
 }
 
+// Funzione pre creare gli Alert di errore, vengono richiamati in ogni operazione
+// avvenuta tramite un server, in caso di errore per avvertire l'utente del tipo
+// di errore riscontrato
 const errorAlert = function (string) {
   const alertContainer = document.getElementById("alertContainer")
 
