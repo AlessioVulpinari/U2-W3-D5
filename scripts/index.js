@@ -1,5 +1,14 @@
 const URL_STRIVE = "https://striveschool-api.herokuapp.com/api/product/"
 
+const errorAlert = function (string) {
+  const alertContainer = document.getElementById("alertContainer")
+
+  alertContainer.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  ERRORE: <strong> ${string}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>`
+}
+
 const fetchData = () => {
   fetch(URL_STRIVE, {
     headers: {
@@ -11,22 +20,27 @@ const fetchData = () => {
       if (response.ok) {
         return response.json()
       } else {
-        if (response.status === 400) {
+        if (resp.status === 400) {
+          errorAlert("400: Bad Request")
           throw new Error("Bad Request")
         }
-        if (response.status === 401) {
+        if (resp.status === 401) {
+          errorAlert("401: Unauthorized")
           throw new Error("Unauthorized")
         }
-        if (response.status === 403) {
+        if (resp.status === 403) {
+          errorAlert("403: Forbidden")
           throw new Error("Forbidden")
         }
-        if (response.status === 404) {
+        if (resp.status === 404) {
+          errorAlert("404: Not Found")
           throw new Error("Not Found")
         }
-        if (response.status === 500) {
+        if (resp.status === 500) {
+          errorAlert("500: Server Error")
           throw new Error("Server Error")
         }
-
+        errorAlert("Generic Fetch Error")
         throw new Error("Generic Fetch Error")
       }
     })
