@@ -61,27 +61,27 @@ const callServer = function (obj) {
         }
         return resp.json()
       } else {
-        if (response.status === 400) {
-          createAlert("400: Bad Request")
+        if (resp.status === 400) {
+          errorAlert("400: Bad Request")
           throw new Error("Bad Request")
         }
-        if (response.status === 401) {
-          createAlert("401: Unauthorized")
+        if (resp.status === 401) {
+          errorAlert("401: Unauthorized")
           throw new Error("Unauthorized")
         }
-        if (response.status === 403) {
-          createAlert("403: Forbidden")
+        if (resp.status === 403) {
+          errorAlert("403: Forbidden")
           throw new Error("Forbidden")
         }
-        if (response.status === 404) {
-          createAlert("404: Not Found")
+        if (resp.status === 404) {
+          errorAlert("404: Not Found")
           throw new Error("Not Found")
         }
-        if (response.status === 500) {
-          createAlert("500: Server Error")
+        if (resp.status === 500) {
+          errorAlert("500: Server Error")
           throw new Error("Server Error")
         }
-        createAlert("Generic Fetch Error")
+        errorAlert("Generic Fetch Error")
         throw new Error("Generic Fetch Error")
       }
     })
@@ -140,27 +140,27 @@ window.onload = () => {
         if (resp.ok) {
           return resp.json()
         } else {
-          if (response.status === 400) {
-            createAlert("400: Bad Request")
+          if (resp.status === 400) {
+            errorAlert("400: Bad Request")
             throw new Error("Bad Request")
           }
-          if (response.status === 401) {
-            createAlert("401: Unauthorized")
+          if (resp.status === 401) {
+            errorAlert("401: Unauthorized")
             throw new Error("Unauthorized")
           }
-          if (response.status === 403) {
-            createAlert("403: Forbidden")
+          if (resp.status === 403) {
+            errorAlert("403: Forbidden")
             throw new Error("Forbidden")
           }
-          if (response.status === 404) {
-            createAlert("404: Not Found")
+          if (resp.status === 404) {
+            errorAlert("404: Not Found")
             throw new Error("Not Found")
           }
-          if (response.status === 500) {
-            createAlert("500: Server Error")
+          if (resp.status === 500) {
+            errorAlert("500: Server Error")
             throw new Error("Server Error")
           }
-          createAlert("Generic Fetch Error")
+          errorAlert("Generic Fetch Error")
           throw new Error("Generic Fetch Error")
         }
       })
