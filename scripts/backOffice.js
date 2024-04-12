@@ -108,10 +108,39 @@ const handleDelete = () => {
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE4ZTJmMjdmMzA0NjAwMWFlNTlmNWEiLCJpYXQiOjE3MTI5MDc5MTksImV4cCI6MTcxNDExNzUxOX0.HQjY17eWKUM8a0qYW9rNdzYJIRMtk-ThpbxwcKvh1ws",
       },
     })
+      .then((resp) => {
+        if (resp.ok) {
+        } else {
+          if (resp.status === 400) {
+            errorAlert("400: Bad Request")
+            throw new Error("Bad Request")
+          }
+          if (resp.status === 401) {
+            errorAlert("401: Unauthorized")
+            throw new Error("Unauthorized")
+          }
+          if (resp.status === 403) {
+            errorAlert("403: Forbidden")
+            throw new Error("Forbidden")
+          }
+          if (resp.status === 404) {
+            errorAlert("404: Not Found")
+            throw new Error("Not Found")
+          }
+          if (resp.status === 500) {
+            errorAlert("500: Server Error")
+            throw new Error("Server Error")
+          }
+          errorAlert("Generic Fetch Error")
+          throw new Error("Generic Fetch Error")
+        }
+      })
       .then((deletedObj) => {
         console.log(deletedObj)
         createAlert("eliminazione")
-        window.location.assign("/index.html")
+        setTimeout(() => {
+          window.location.assign("/index.html")
+        }, 2000)
       })
       .catch((err) => console.log(err))
   }
