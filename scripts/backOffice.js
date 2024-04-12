@@ -4,9 +4,6 @@ const URL_BASIC = "https://striveschool-api.herokuapp.com/api/product/"
 const URL_STRIVE = id ? URL_BASIC + id : URL_BASIC
 let method = id ? "PUT" : "POST"
 
-console.log(URL_STRIVE)
-console.log(method)
-
 const createAlert = function (string) {
   const alertContainer = document.getElementById("alertContainer")
 
@@ -14,6 +11,15 @@ const createAlert = function (string) {
   L'operazione di <strong> ${string}</strong> ha avuto successo!
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>`
+}
+
+const errorAlert = function (string) {
+  const alertContainer = document.getElementById("alertContainer")
+
+  alertContainer.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  ERRORE: <strong> ${string}</strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>`
 }
 
 const handleSubmitForm = function (event) {
@@ -55,7 +61,28 @@ const callServer = function (obj) {
         }
         return resp.json()
       } else {
-        throw new Error("Errore nell'inserimento")
+        if (response.status === 400) {
+          createAlert("400: Bad Request")
+          throw new Error("Bad Request")
+        }
+        if (response.status === 401) {
+          createAlert("401: Unauthorized")
+          throw new Error("Unauthorized")
+        }
+        if (response.status === 403) {
+          createAlert("403: Forbidden")
+          throw new Error("Forbidden")
+        }
+        if (response.status === 404) {
+          createAlert("404: Not Found")
+          throw new Error("Not Found")
+        }
+        if (response.status === 500) {
+          createAlert("500: Server Error")
+          throw new Error("Server Error")
+        }
+        createAlert("Generic Fetch Error")
+        throw new Error("Generic Fetch Error")
       }
     })
     .catch((err) => console.log(err))
@@ -113,7 +140,28 @@ window.onload = () => {
         if (resp.ok) {
           return resp.json()
         } else {
-          throw new Error("Errore nella fetch")
+          if (response.status === 400) {
+            createAlert("400: Bad Request")
+            throw new Error("Bad Request")
+          }
+          if (response.status === 401) {
+            createAlert("401: Unauthorized")
+            throw new Error("Unauthorized")
+          }
+          if (response.status === 403) {
+            createAlert("403: Forbidden")
+            throw new Error("Forbidden")
+          }
+          if (response.status === 404) {
+            createAlert("404: Not Found")
+            throw new Error("Not Found")
+          }
+          if (response.status === 500) {
+            createAlert("500: Server Error")
+            throw new Error("Server Error")
+          }
+          createAlert("Generic Fetch Error")
+          throw new Error("Generic Fetch Error")
         }
       })
       .then((product) => {
