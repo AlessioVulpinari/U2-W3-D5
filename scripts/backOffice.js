@@ -7,6 +7,15 @@ let method = id ? "PUT" : "POST"
 console.log(URL_STRIVE)
 console.log(method)
 
+const createAlert = function (string) {
+  const alertContainer = document.getElementById("alertContainer")
+
+  alertContainer.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+  L'operazione di <strong> ${string}</strong> ha avuto successo!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`
+}
+
 const handleSubmitForm = function (event) {
   event.preventDefault()
 
@@ -39,6 +48,11 @@ const callServer = function (obj) {
   })
     .then((resp) => {
       if (resp.ok) {
+        if (method === "PUT") {
+          createAlert("modifica")
+        } else {
+          createAlert("creazione")
+        }
         return resp.json()
       } else {
         throw new Error("Errore nell'inserimento")
@@ -52,6 +66,7 @@ const resetForm = function (e) {
 
   if (hasConfirmed) {
     e.target.closest("form").reset()
+    createAlert("reset")
   }
 }
 
@@ -68,7 +83,7 @@ const handleDelete = () => {
     })
       .then((deletedObj) => {
         console.log(deletedObj)
-        alert("Risorsa: eliminata con successo!")
+        createAlert("eliminazione")
         window.location.assign("/index.html")
       })
       .catch((err) => console.log(err))
