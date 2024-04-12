@@ -48,7 +48,11 @@ const callServer = function (obj) {
 }
 
 const resetForm = function (e) {
-  e.target.closest("form").reset()
+  const hasConfirmed = confirm("Vuoi davvero resettare il form?")
+
+  if (hasConfirmed) {
+    e.target.closest("form").reset()
+  }
 }
 
 const handleDelete = () => {
