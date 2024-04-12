@@ -62,7 +62,7 @@ const createCards = (arrayOfObj) => {
 
     const img = document.createElement("img")
     img.src = card.imageUrl
-    img.classList.add("bd-placeholder-img", "card-img-top", "img-thumbnail")
+    img.classList.add("bd-placeholder-img", "card-img-top")
 
     const cardBody = document.createElement("div")
     cardBody.classList.add("card-body")
