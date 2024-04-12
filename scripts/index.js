@@ -33,6 +33,8 @@ const fetchData = () => {
     .then((data) => {
       console.log(data)
       createCards(data)
+      const spinner = document.getElementById("spinner")
+      spinner.classList.add("d-none")
     })
     .catch((err) => console.log(err))
 }
