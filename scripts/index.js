@@ -99,6 +99,9 @@ const createCards = (arrayOfObj) => {
     moreInfoBtn.classList.add("btn", "btn-sm", "btn-outline-secondary")
     moreInfoBtn.type = "button"
     moreInfoBtn.innerText = "Scopri di più"
+    moreInfoBtn.addEventListener("click", () => {
+      window.location.href = `/details.html?_id=${card._id}`
+    })
 
     const modifyBtn = document.createElement("button")
     modifyBtn.classList.add("btn", "btn-sm", "btn-outline-secondary")
