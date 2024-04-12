@@ -1,9 +1,16 @@
+// recuperiamo l'id dall'URL
 const params = new URLSearchParams(window.location.search)
 const id = params.get("_id")
+// Dichiarazione dell'URL di default che cambierà in base alla presenza o meno
+// del parametro _id nell'URL
 const URL_BASIC = "https://striveschool-api.herokuapp.com/api/product/"
 const URL_STRIVE = id ? URL_BASIC + id : URL_BASIC
+// Nello stesso modo decidiamo il metodo che dobbiamo applicare
+// PUT nel caso sia presente un id, POST nel caso conttarrio
 let method = id ? "PUT" : "POST"
 
+// Una funzione per creare un alert generico, richiedo come parametro una stringa
+// che verrà inserita in base all'operazione svolta dall'utente
 const createAlert = function (string) {
   const alertContainer = document.getElementById("alertContainer")
 
@@ -13,6 +20,9 @@ const createAlert = function (string) {
 </div>`
 }
 
+// Simile alla precedente, tuttavia questa crea un alert con un messaggio di errore
+// anche questa richiede come parametro una stringa che indicherà il messaggio e il tipo
+// di errore riscontrato
 const errorAlert = function (string) {
   const alertContainer = document.getElementById("alertContainer")
 
@@ -22,26 +32,30 @@ const errorAlert = function (string) {
   </div>`
 }
 
+// Funzione che gestisce il submit del form
 const handleSubmitForm = function (event) {
+  // preveniamo il comportamento di default del form così la pagina non ricaricherà in automatico
   event.preventDefault()
 
+  // recuperiamo i dati dalle inputBox
   const name = document.getElementById("name").value
   const description = document.getElementById("description").value
   const brand = document.getElementById("brand").value
   const imageUrl = document.getElementById("imageUrl").value
   const price = parseInt(document.getElementById("price").value)
-
+  // salviamo i datti in un oggetto
   const newProduct = { name, description, brand, imageUrl, price }
-
+  // passiamo i dati appena recuperati ad una funzione per fare un operazione con il server
   callServer(newProduct)
 
-  console.log(newProduct)
   if (id) {
   } else {
     event.target.reset()
   }
 }
 
+// FUNZIONE PRINCIPALE: gestisce le chiamate al server gestendo le operazioni di modifica o di inserimento
+// dei prodotti
 const callServer = function (obj) {
   fetch(URL_STRIVE, {
     method,
@@ -88,6 +102,7 @@ const callServer = function (obj) {
     .catch((err) => console.log(err))
 }
 
+// funzione per resettare il Form, collegata al bottone di reset
 const resetForm = function (e) {
   const hasConfirmed = confirm("Vuoi davvero resettare il form?")
 
@@ -97,6 +112,7 @@ const resetForm = function (e) {
   }
 }
 
+// funzione per eliminare un prodotto dalla lista di elementi salvati nella nostra API
 const handleDelete = () => {
   const hasConfirmed = confirm("Vuoi eliminare davvero il prodotto?")
 
@@ -146,6 +162,7 @@ const handleDelete = () => {
   }
 }
 
+// OPERAZIONI ALL'AVVIO DELLA PAGINA:
 window.onload = () => {
   const form = document.getElementById("form")
   const btnModify = document.getElementById("btnModify")
@@ -158,6 +175,7 @@ window.onload = () => {
     resetForm(e)
   })
 
+  // Se id esiste recuperiamo i dati del prodotto con quel'id
   if (id) {
     fetch(URL_STRIVE, {
       headers: {
