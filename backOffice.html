@@ -38,7 +38,9 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">Back-Office</a>
+                <a class="nav-link active" href="/backOffice.html"
+                  >Back-Office</a
+                >
               </li>
             </ul>
           </div>
@@ -49,7 +51,7 @@
     <main>
       <section class="container d-flex justify-content-center">
         <form class="border border-light-subtle p-3" id="form">
-          <h1 class="display-2">Inserimento prodotti:</h1>
+          <h1 class="display-2" id="primaryTitle"></h1>
           <div class="my-2">
             <label for="name" class="display-5">Nome prodotto:</label>
             <input
@@ -109,7 +111,7 @@
             <button type="submit" class="btn btn-primary" id="btnInsert">
               Inserisci prodotto
             </button>
-            <button type="button" class="btn btn-primary d-none" id="btnModify">
+            <button type="submit" class="btn btn-primary d-none" id="btnModify">
               Modifica il prodotto
             </button>
             <button type="button" class="btn btn-danger" id="btnReset">
