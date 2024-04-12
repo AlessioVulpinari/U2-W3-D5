@@ -51,11 +51,32 @@ const resetForm = function (e) {
   e.target.closest("form").reset()
 }
 
+const handleDelete = () => {
+  const hasConfirmed = confirm("Vuoi eliminare davvero il prodotto?")
+
+  if (hasConfirmed) {
+    fetch(URL_STRIVE, {
+      method: "DELETE",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE4ZTJmMjdmMzA0NjAwMWFlNTlmNWEiLCJpYXQiOjE3MTI5MDc5MTksImV4cCI6MTcxNDExNzUxOX0.HQjY17eWKUM8a0qYW9rNdzYJIRMtk-ThpbxwcKvh1ws",
+      },
+    })
+      .then((deletedObj) => {
+        console.log(deletedObj)
+        alert("Risorsa: eliminata con successo!")
+        window.location.assign("/index.html")
+      })
+      .catch((err) => console.log(err))
+  }
+}
+
 window.onload = () => {
   const form = document.getElementById("form")
   const btnModify = document.getElementById("btnModify")
   const btnInsert = document.getElementById("btnInsert")
   const btnReset = document.getElementById("btnReset")
+  const btnDelete = document.getElementById("btnDelete")
   const title = document.getElementById("primaryTitle")
 
   btnReset.addEventListener("click", (e) => {
@@ -79,6 +100,8 @@ window.onload = () => {
       .then((product) => {
         const { name, description, brand, imageUrl, price } = product
         btnModify.classList.remove("d-none")
+        btnDelete.classList.remove("d-none")
+        btnDelete.addEventListener("click", handleDelete)
         btnInsert.classList.add("d-none")
         title.innerText = "Modifica il prodotto:"
 
